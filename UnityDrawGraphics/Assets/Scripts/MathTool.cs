@@ -84,7 +84,7 @@ public class MathTool
         while (exist)
         {
             exist = false;
-            for (int i = 0; i < points.Count - 1; i++)
+            for (int i = 0; i < points.Count-1; i++)
             {
                 if (GetAngle2(center, points[i]) > GetAngle2(center, points[i + 1]))
                 {
@@ -106,8 +106,8 @@ public class MathTool
         Vector2 center = new Vector2();
         foreach (var item in points)
         {
-            center.x = item.x;
-            center.y = item.y;
+            center.x += item.x;
+            center.y += item.y;
         }
         center.x = center.x / points.Count;
         center.y = center.y / points.Count;
@@ -350,7 +350,7 @@ public class MathTool
         List<Vector2> focusPoints = new List<Vector2>();
         for (int n = 0; n < points.Count; n++)
         {
-            Vector2 focus;
+            Vector2 focus=new Vector2(10000,0);
             if (n == points.Count - 1)
             {
                 focus = GetFocus(points[n], points[0], _angle, _clickPoint, _movePoint, _K, _b);
@@ -359,7 +359,7 @@ public class MathTool
             {
                 focus = GetFocus(points[n], points[n + 1], _angle, _clickPoint, _movePoint, _K, _b);
             }
-            if (focus != null)
+            if (focus.x!=10000)
             {
                 focusPoints.Add(focus);
             }
@@ -390,7 +390,17 @@ public class MathTool
         SortPoints(arr2);
         if (arr2.Count != 0)
         {
-            _newPoints.Insert(_newPoints.Count - 1, arr2);
+            _newPoints.Insert(_newPoints.Count, arr2);
         }
+    }
+    /// <summary>
+    /// 转换flash二维坐标
+    /// </summary>
+    /// <param name="v2"></param>
+    /// <returns></returns>
+    public static Vector2 ToVector2(Vector2 v2)
+    {
+        v2.y = Screen.height - v2.y;
+        return v2;
     }
 }

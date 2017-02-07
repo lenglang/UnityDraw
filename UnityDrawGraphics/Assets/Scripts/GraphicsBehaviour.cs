@@ -30,8 +30,11 @@ public class GraphicsBehaviour : MonoBehaviour
     private Vector2 ScreenToGLPoint(Vector2 point)
     {
         point.x /= Screen.width;
+        point.y = Screen.height - point.y;
         point.y /= Screen.height;
 
+        //point.x = Screen.width - point.x;
+        //point.y = Screen.height- point.y;
         return point;
     }
 
@@ -90,7 +93,7 @@ public class GraphicsBehaviour : MonoBehaviour
 
     public void DrawPolygon(List<Vector2> points, Color fillColor, Color lineColor, PointMode pointMode = PointMode.ScreenPoint)
     {
-        Debug.Log(points[0]);
+
         if (points == null || points.Count == 0)
             return;
 
