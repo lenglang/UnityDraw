@@ -22,7 +22,6 @@ public class DrawControl : GraphicsBehaviour
         _inItPoints[0].Add(MathTool.ToVector2(new Vector2(Screen.width * 3/4, Screen.height * 3 / 4)));
         _inItPoints[0].Add(MathTool.ToVector2(new Vector2(Screen.width/4, Screen.height * 3 / 4)));
 
-
         //_inItPoints.Add(new List<Vector2>());
         //_inItPoints[1].Add(MathTool.ToVector2(new Vector2(100 + Screen.width / 4, Screen.height / 4)));
         //_inItPoints[1].Add(MathTool.ToVector2(new Vector2(100 + Screen.width * 3 / 4, Screen.height / 4)));
@@ -34,12 +33,9 @@ public class DrawControl : GraphicsBehaviour
         //_inItPoints[2].Add(MathTool.ToVector2(new Vector2(150 + Screen.width * 3 / 4, Screen.height / 4)));
         //_inItPoints[2].Add(MathTool.ToVector2(new Vector2(150 + Screen.width * 3 / 4, Screen.height * 3 / 4)));
         //_inItPoints[2].Add(MathTool.ToVector2(new Vector2(150 + Screen.width / 4, Screen.height * 3 / 4)));
-
         _newPoints.Add(_inItPoints[0]);
         //_newPoints.Add(_inItPoints[1]);
         //_newPoints.Add(_inItPoints[2]);
-
-
     }
     // Update is called once per frame
     void Update()
@@ -53,7 +49,7 @@ public class DrawControl : GraphicsBehaviour
         else if (Input.GetMouseButton(0))
         {
             _moveCurrentVector2 = MathTool.ToVector2(Input.mousePosition);
-            if (MathTool.GetDistance(_moveCurrentVector2, _moveLastVector2) <1) return;
+            if (MathTool.GetDistance(_moveCurrentVector2, _moveLastVector2) <5) return;
             _moveLastVector2 = _moveCurrentVector2;
             _angle = MathTool.GetAngle2(_downVector2, _moveCurrentVector2);
             var radian = (_angle - 90) * Mathf.PI / 180;
@@ -73,6 +69,8 @@ public class DrawControl : GraphicsBehaviour
                 p2.x = (_downVector2.x + _moveCurrentVector2.x) / 2;
                 p2.y = -_symmetryLength;
             }
+            p1 = MathTool.ToVector2(p1);
+            p2 = MathTool.ToVector2(p2);
             _linePoints.Clear();
             _linePoints.Add(p1);
             _linePoints.Add(p2);
@@ -110,6 +108,7 @@ public class DrawControl : GraphicsBehaviour
             {
                 linePoints.Add(_linePoints[i]);
             }
+            //绘制折线
             //DrawLines(linePoints, Color.red, PointMode.ScreenPoint);
         }
     }
